@@ -1,0 +1,40 @@
+{
+  "identity": {
+    "civilite": "Monsieur",
+    "dateNaissance": "1988-07-09",
+    "nom": "LAUF",
+    "prenom": "DIMITRI",
+    "email": "lauf.dimitri@gmail.com",
+    "telephone": "0647526971",
+    "adresse": "27 RUE DE L'ECOLE"
+  },
+  "situation": {
+    "statut": "Employé(e)",
+    "profession": "Conseiller",
+    "familiale": "Célibataire",
+    "logement": "Locataire"
+  },
+  "budget": {
+    "revenues": [],
+    "charges": [],
+    "credits": [],
+    "salaires": "2500",
+    "loyer": "850",
+    "energie": "252",
+    "assuranceHabitation": "27",
+    "telecom": "100",
+    "transports": "255",
+    "creditConsoNom0": "CACF",
+    "creditConsoMens0": "250",
+    "creditConsoCRD0": "5000",
+    "creditConsoNom1": "BNPF",
+    "creditConsoMens1": "500",
+    "creditConsoCRD1": "10000"
+  },
+  "consents": {
+    "rgpd": true,
+    "prescrip": true,
+    "transfer": true
+  },
+  "files": []
+}
