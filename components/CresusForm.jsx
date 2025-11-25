@@ -695,20 +695,21 @@ export default function CresusForm() {
     setTests(out);
   }
 
-  // ---- Firebase : upload des fichiers avec barre de progression ----
-  async function uploadFilesToFirebase(fileList) {
-    if (!fileList || fileList.length === 0) return [];
+ // ---- Firebase : upload des fichiers avec barre de progression ----
+async function uploadFilesToFirebase(fileList) {
+  if (!fileList || fileList.length === 0) return [];
 
-    const uploaded = [];
+  const uploaded = [];
 
-    for (let i = 0; i < fileList.length; i++) {
-      const fileObj = fileList[i];
-      const file = fileObj.file;
+  for (let i = 0; i < fileList.length; i++) {
+    const fileObj = fileList[i];
+    const file = fileObj.file;
 
-      const path = `dossiers/${Date.now()}_${i}_${file.name}`;
-      const storageRef = ref(storage, path);
+    const path = `dossiers/${Date.now()}_${i}_${file.name}`;
+    const storageRef = ref(storage, path);
 
-      await new Promise((resolve, reject) => {
+    try {
+      const result = await new Promise((resolve) => {
         const uploadTask = uploadBytesResumable(storageRef, file);
 
         uploadTask.on(
@@ -724,23 +725,25 @@ export default function CresusForm() {
           },
           (error) => {
             console.error("❌ Erreur upload Firebase :", error);
-            reject(error);
+            resolve(null); // 👉 IMPORTANT : on CONTINUE MÊME EN CAS D’ÉCHEC
           },
           async () => {
             const url = await getDownloadURL(uploadTask.snapshot.ref);
-            uploaded.push({
-              name: file.name,
-              url,
-              path,
-            });
-            resolve();
+            resolve({ name: file.name, url, path });
           }
         );
       });
-    }
 
-    return uploaded;
+      if (result) uploaded.push(result);
+
+    } catch (e) {
+      console.error("Erreur inattendue upload :", e);
+      // 👉 On continue même si un fichier échoue
+    }
   }
+
+  return uploaded;
+}
 
   // ---- Firebase : sauvegarde du dossier complet ----
   async function saveDossier() {
