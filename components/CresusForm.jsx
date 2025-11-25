@@ -509,6 +509,19 @@ function ModalRGPD({ open, onClose }) {
 
 // --- Composant principal ---
 export default function CresusForm() {
+  const [sent, setSent] = useState(false);
+
+  if (sent) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-white text-center p-6">
+        <img src="/CRESUS_FONDATION.png" alt="Logo CRÉSUS" className="h-16 w-auto mb-6" />
+        <h1 className="text-2xl font-bold text-emerald-700 mb-2">✔ Votre dossier a bien été envoyé</h1>
+        <p className="text-black/70 max-w-md">Un conseiller CRÉSUS va analyser votre dossier et vous recontactera si nécessaire.</p>
+        <button className="mt-6 px-6 py-2 rounded-xl bg-indigo-600 text-white hover:bg-indigo-500" onClick={() => window.location.href = "/"}>Retour à l’accueil</button>
+      </div>
+    );
+  }
+
   if (sent) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-white text-center p-6">
@@ -640,7 +653,6 @@ export default function CresusForm() {
 
   // Tests intégrés
   const [tests, setTests] = useState([]);
-  const [sent, setSent] = useState(false);
 
 
   function runSelfTests() {
